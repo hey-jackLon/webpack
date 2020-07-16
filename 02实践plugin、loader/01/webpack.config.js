@@ -1,22 +1,33 @@
-const path = require('path')
+const path = require('path');
+
 module.exports = {
-    entry: {
-        main: './src/index.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'file-loader'
-                    }
-                ]
-            },
-        ]
-    },
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist')
-    }
+	mode: 'development',
+	entry: {
+		main: './src/index.js'
+	},
+	module: {
+		rules: [{
+			test: /\.(jpg|png|gif)$/,
+			use: {
+				loader: 'url-loader',
+				options: {
+					name: '[name]_[hash].[ext]',
+					outputPath: 'images/',
+					limit: 10240
+				}
+			} 
+		},{
+			test: /\.scss$/,
+			use: [
+				'style-loader', 
+				'css-loader', 
+				'sass-loader',
+				'postcss-loader'
+			]
+		}]
+	},
+	output: {
+		filename: 'main.js',
+		path: path.resolve(__dirname, 'dist')
+	}
 }
