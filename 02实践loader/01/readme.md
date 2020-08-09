@@ -80,9 +80,22 @@ module: {
 module: {
         rules: [
             {
-                test:/\.css$/,
-                use:['style-loader','css-loader'],//css-loader分析css文件中的模块引入关系 style-loader将css样式挂载到head标签中
-            }            
+                test:/\.(css|scss)$/,
+                use:[
+                    {
+                        loader:'style-loader'//将 JS 字符串生成为 style 节点 style-loader将css样式挂载到head标签中
+                    },
+                    {
+                        loader:'css-loader'//将 CSS 转化成 CommonJS 模块 css-loader分析css文件中的模块引入关系
+                    },
+                    {
+                        loader:'sass-loader'//将 Sass 编译成 CSS
+                    },
+                    {
+                        loader:'postcss-loader'//使用autoprefixer添加浏览器厂商前缀
+                    },
+                ]
+            }           
         ]
     },
 ```
