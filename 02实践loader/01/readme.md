@@ -87,3 +87,50 @@ module: {
     },
 ```
 
+如遇autoprefixer不生效问题在package.json添加支持的浏览器版本
+
+```javascript
+"browserslist": [
+    "defaults",
+    "not ie <= 8",
+    "last 2 versions",
+    "> 1%",
+    "iOS >= 7",
+    "Android >= 4.0"
+  ]
+```
+
+##### css样式模块化
+
+如果直接引入（import）样式会导致样式冲突
+
+```javascript
+{
+    loader: 'css-loader',
+        options: {
+            importLoaders: 2,//查询参数 importLoaders，用于配置「css-loader 作用于 @import 的资源之前」有多少个 loader。
+            modules: true,//查询参数 modules 会启用 CSS 模块规范。默认情况下，这将启用局部作用域 CSS。
+        }
+},
+```
+
+样式需使用以下方式引入
+
+```javascript
+import style from 'index.css'
+img.classList.add(style.test)//test指的是样式文件内的样式类名称
+```
+
+##### 字体文件的打包
+
+- 使用file-loader打包字体文件
+
+```
+{
+	test:/\.(eot|ttf|svg)$/
+	use:{
+		loader:'file-loader'
+	}
+}
+```
+
